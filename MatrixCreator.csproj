@@ -12,6 +12,9 @@
       <None Update="Templates\SimpleTemplate\SimpleTemplate.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Templates\PastelPicture\PastelPicture.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
