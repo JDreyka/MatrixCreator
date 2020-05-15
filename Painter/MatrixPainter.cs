@@ -41,7 +41,7 @@ namespace MatrixCreator.Painter
 
                 if (currentPosition.Y + size.Height + drawingData.LineSpacing <= coords.Item2.Y)
                     graphics.DrawString(matrixItem.Value, font, brush, new Rectangle(currentPosition, GetSize(coords)));
-                else throw new Exception($"Failed to put item:{matrixItem.Value} in block");
+                else throw new PainterException($"Failed to put item:{matrixItem.Value} in block");
 
                 currentPosition.Y += (int)size.Height + drawingData.LineSpacing;
             }
