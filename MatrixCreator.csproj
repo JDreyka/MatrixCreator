@@ -15,6 +15,9 @@
       <None Update="Templates\PastelPicture\PastelPicture.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Templates\AncientTale\AncientTale.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

@@ -1,27 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using MatrixCreator.Templates;
 
 namespace MatrixCreator.Painter
 {
     public static class MatrixPainter
     {
-        public static void Draw(EisenhowerMatrix matrix, string matrixName)
+        public static void Draw(EisenhowerMatrix matrix, string matrixName, string savePath = null)
         {
             var matrixData = matrix.Data;
             var matrixTemplate = matrix.MatrixTemplate;
             var drawingData = matrixTemplate.DrawingData;
             
-            var image = Image.FromFile(matrixTemplate.ImgTemplatePath);
-            var graphics = Graphics.FromImage(image);
+            using var image = Image.FromFile(matrixTemplate.ImgTemplatePath);
+            using var graphics = Graphics.FromImage(image);
 
             foreach (var type in matrixData.Keys)
             {
                 DrawMatrixBlock(graphics, matrixData[type], matrix.MatrixTemplate.BlockCoords[type], drawingData);
             }
             
-            image.Save(matrixName + ".png", System.Drawing.Imaging.ImageFormat.Png);
+            SaveImage(image, matrixName, savePath);
+        }
+
+        private static void SaveImage(Image image, string imageName, string savePath)
+        {
+            var path = savePath ?? Directory.GetCurrentDirectory();
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            
+            path = Path.Combine(path, imageName);
+            image.Save(path + ".png", ImageFormat.Png);
         }
 
         private static void DrawMatrixBlock(
@@ -30,8 +42,8 @@ namespace MatrixCreator.Painter
             (Point, Point) coords, 
             MatrixDrawingData drawingData)
         {
-            var font = GetFont(drawingData);
-            var brush = GetBrush(drawingData);
+            using var font = GetFont(drawingData);
+            using var brush = GetBrush(drawingData);
             
             var currentPosition = coords.Item1;
 
