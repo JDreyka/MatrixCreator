@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace MatrixCreator.Templates.AncientTale
+namespace MatrixCreator.Templates
 {
     public class AncientTale : IMatrixTemplate
     {

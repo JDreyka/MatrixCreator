@@ -2,19 +2,25 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Reflection;
 using MatrixCreator.Templates;
 
 namespace MatrixCreator.Painter
 {
     public static class MatrixPainter
     {
+        public static string TemplatesPath { get; set; } =
+            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
         public static void Draw(EisenhowerMatrix matrix, string matrixName, string savePath = null)
         {
             var matrixData = matrix.Data;
             var matrixTemplate = matrix.MatrixTemplate;
             var drawingData = matrixTemplate.DrawingData;
             
-            using var image = Image.FromFile(matrixTemplate.ImgTemplatePath);
+            var imgTemplatePath = Path.Combine(TemplatesPath, matrixTemplate.ImgTemplatePath);
+            
+            using var image = Image.FromFile(imgTemplatePath);
             using var graphics = Graphics.FromImage(image);
 
             foreach (var type in matrixData.Keys)
